@@ -21,6 +21,17 @@ Route::get('/', function () {
     return view('index');
 });
 
+
+Route::get('/create-campaign', function () {
+    return view('create-campaign');
+})->middleware('redirectCreateCampaign');
+
+
+Route::get('/create-new-campaign', function () {
+    return view('create-campaign');
+});
+
+// User links
 Route::get('/register', function () {
     return view('register');
 })->middleware('activeUser');
@@ -33,26 +44,25 @@ Route::get('/logout', function () {
     return view('login');
 })->middleware('activeUser');
 
-
-Route::get('/create-campaign', function () {
-    return view('create-campaign');
-})->middleware('redirectCreateCampaign');
-
-
-Route::get('/create-new-campaign', function () {
-    return view('create-campaign');
+Route::get('/edit-user-account', function () {
+    return view('edit-user-account');
 });
-
 
 Route::post('/create-user', [UserController::class, 'createUser']);
 Route::post('/login-user', [UserController::class, 'login']);
-Route::get('/user-profile/{user_id}', [UserController::class, 'userProfile']);
+Route::get('/user-profile/{username}', [UserController::class, 'userProfile']);
+Route::post('/update-user-profile/{username}', [UserController::class, 'updateUserProfile']);
+
+// Campaign links
 Route::post('/create-campaign', [CampaignController::class, 'create']);
 Route::get('/all-campaigns', [CampaignController::class, 'index']);
-Route::get('/my-campaigns', [CampaignController::class, 'myCampaigns']);
+Route::get('/my-campaigns/{username}', [CampaignController::class, 'myCampaigns']);
 Route::get('/edit-campaign/{id}', [CampaignController::class, 'editCampaign']);
 Route::post('/update-campaign/{id}', [CampaignController::class, 'updateCampaign']);
+Route::get('/delete-campaign/{id}', [CampaignController::class, 'deleteCampaign']);
+
+// donation links
 Route::post('/create-donation/{id}', [DonationController::class, 'donate']);
 Route::get('/donate/{id}', [DonationController::class, 'makeDonation']);
-Route::get('/donations-response', [DonationController::class, 'donationResponse']);
-Route::post('/save-donation/{transaction_id}', [DonationController::class, 'saveDonation']);
+Route::get('/donations-response/{user_id}/{id}', [DonationController::class, 'donationResponse']);
+Route::get('/my-donations', [DonationController::class, 'myDonations']);

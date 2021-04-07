@@ -19,10 +19,6 @@ class UserController extends Controller
         } else {
             $data = $request->input();
             $request->session()->put('user', $user);
-            $request->session()->put('user_id', $user->user_id);
-            $request->session()->put('username', $user->username);
-            $request->session()->put('email', $user->email);
-            $request->session()->put('user_image', $user->user_image);
 
             return redirect('/');
         }
@@ -39,18 +35,58 @@ class UserController extends Controller
         $user->facebook_link = $request->facebook_link;
         $user->twitter_link = $request->twitter_link;
         $user->instagram_link = $request->instagram_link;
-        $user->user_image = $request->image;
+        $user->user_image = $request->file('image')->getClientOriginalName();
         $user->save();
 
-        $request->image->store('image', 'public');
+        $imageName = $request->file('image')->getClientOriginalName();
+        $destinationPath = 'public/users';
 
-        $credentials = $request->only($user->email, $user->password);
+        $request->file('image')->move($destinationPath, $imageName);
+
+        $credentials = ['email' => $request->email, 'password' => $request->password];
+
+        $loggedUser = User::where(['email' => $request->email])->first();
+        $request->session()->put('user', $loggedUser);
 
         return redirect('/login');
     }
 
     public function userProfile($id) {
-        $userDetails = Session::get('user');
+        $userDetails = User::where(['username' => $id])->first();
         return view('user-profile', ['userDetails' => $userDetails]);
     }
+
+    public function updateUserProfile(Request $request) {
+        $user = User::find(session('user')->id);
+
+        $user->username = $request->username;
+        $user->email = $request->email;
+        $user->category = $request->category;       
+        $user->description = $request->description;
+        $user->facebook_link = $request->facebook_link;
+        $user->twitter_link = $request->twitter_link;
+        $user->instagram_link = $request->instagram_link;
+        $user->user_image = $request->file('image')->getClientOriginalName();
+        $user->save();
+
+        session('user')->username = $request->username;
+        session('user')->email = $request->email;
+        session('user')->category = $request->category;       
+        session('user')->description = $request->description;
+        session('user')->facebook_link = $request->facebook_link;
+        session('user')->twitter_link = $request->twitter_link;
+        session('user')->instagram_link = $request->instagram_link;
+        session('user')->user_image = $request->file('image')->getClientOriginalName();
+
+        $imageName = $request->file('image')->getClientOriginalName();
+        $destinationPath = 'public/users';
+
+        $request->file('image')->move($destinationPath, $imageName);
+        
+
+
+
+        return redirect('/user-profile/'.session('user')->username);
+    }
+
 }

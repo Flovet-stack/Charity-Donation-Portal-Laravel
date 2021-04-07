@@ -14,18 +14,19 @@ class CreateCampaignsTable extends Migration
     public function up()
     {
         Schema::create('campaigns', function (Blueprint $table) {
-            $table->id('campaign_id');
+            $table->id();
             $table->string('campaign_name');
             $table->string('goal_amount');
+            $table->string('donated_amount')->default('0');
             $table->string('author')->nullable();
             $table->unsignedBigInteger('author_id');
             $table->string('description');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('status')->default(false);
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
 
-            $table->foreign('author_id')->references('user_id')->on('users');
+            $table->foreign('author_id')->references('id')->on('users');
         });
     }
 

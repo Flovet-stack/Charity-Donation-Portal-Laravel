@@ -19,27 +19,31 @@ class CampaignController extends Controller
         $campaign = new Campaign;
         $campaign->campaign_name = $request->name;
         $campaign->goal_amount = $request->goal_amount;
-        $campaign->author = session::get('username');
-        $campaign->author_id = session::get('user_id');
+        $campaign->author = session::get('user')->username;
+        $campaign->author_id = session::get('user')->id;
         $campaign->description = $request->description;
-        $campaign->image = $request->image;
+        $campaign->image = $request->file('image')->getClientOriginalName();
         $campaign->save();
 
-        return redirect('/all-campaigns');
+        $imageName = $request->file('image')->getClientOriginalName();
+        $destinationPath = 'public/img';
+
+        $request->file('image')->move($destinationPath, $imageName);
+
+        return redirect('/my-campaigns/'.session()->get('user')->username);
     }
 
     public function myCampaigns() {
-        $campaigns = DB::table('campaigns')->where('author_id', session::get('user_id'))->get();
+        $campaigns = DB::table('campaigns')->where('author_id', session()->get('user')->id)->get();
 
         return view('my-campaigns', ['campaigns' => $campaigns]);
     }
 
     public function editCampaign($id) {
         {
-            $current_campaign = (array)DB::table('campaigns')->where('campaign_id', $id)->get()[0];
+            $current_campaign = (array)DB::table('campaigns')->find($id);
 
             return view('edit-campaign', ['current_campaign' => $current_campaign]);
-            // return $current_campaign;
         }
     }
 
@@ -47,8 +51,31 @@ class CampaignController extends Controller
         {
             $current_campaign = Campaign::find($id);
 
-            // return view('edit-campaign', ['current_campaign' => $current_campaign]);
-            return $current_campaign;
+            $current_campaign->campaign_name = $request->campaign_name;
+            $current_campaign->goal_amount = $request->goal_amount;
+            $current_campaign->description = $request->description;
+            $current_campaign->image = $request->file('image')->getClientOriginalName();
+            $current_campaign->save();
+
+            $imageName = $request->file('image')->getClientOriginalName();
+            $destinationPath = 'public/img';
+    
+            $request->file('image')->move($destinationPath, $imageName);
+
+            return redirect('/my-campaigns/'.session()->get('user')->username);
         }
     }
+
+    public function deleteCampaign($id) {
+        $current_campaign = Campaign::find($id);
+        if(file_exists(public_path()."/public/img/".$current_campaign->image)) {
+            unlink(public_path()."/public/img/".$current_campaign->image);
+        }
+        $current_campaign->delete();
+
+        return redirect('/my-campaigns/'.session()->get('user')->username);
+    }
 }
+
+
+

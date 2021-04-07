@@ -44,6 +44,7 @@ a {
     font-size: 18px;
     transition-duration: .3s;
     width: fit-content;
+    cursor: pointer;
 }
 
 .btn.btn-blue {
@@ -100,6 +101,18 @@ a {
     position: absolute;
     transform: translateY(10px);
     transition-duration: .3s;
+}
+
+.large-heading span {
+    font-size: 20px;
+}
+
+.green {
+    color: #04b404 !important;
+}
+
+.red {
+    color: #e60606 !important;
 }
 
 
@@ -436,7 +449,7 @@ header.scroll .user-card {
 }
 
 .user-menu.show ul {
-    height: 100px;
+    height: 150px;
     transition-duration: .3s;
 }
 
@@ -567,15 +580,24 @@ header.scroll .user-menu ul {
     margin-bottom: .3rem;
 }
 
-.all-campaigns .campaign-card h4 {
+.all-campaigns .campaign-card h4,
+.all-campaigns .campaign-card h4 a {
     font-size: 16px;
-    color: var(--text);
+    color: var(--dark);
     text-transform: capitalize;
-    margin-bottom: 2rem;
+}
+
+.all-campaigns .campaign-card h4 a {
+    text-decoration: underline;
+}
+
+.all-campaigns .campaign-card h4 a:hover {
+    color: var(--red);
+    text-decoration: underline;
 }
 
 .all-campaigns .campaign-card h4 span {
-    color: var(--dark);
+    color: var(--text);
 }
 
 .all-campaigns .campaign-card .btn-blue {
@@ -594,6 +616,69 @@ header.scroll .user-menu ul {
     font-size: 16px;
     color: var(--text);
     font-weight: 600;
+    margin-top: 2rem;
+}
+
+.all-campaigns .campaign-card .confirm-delete {
+    width: 49%;
+    text-align: center;
+    background-color: #fff;
+    color: #d43021;
+    overflow-y: hidden;
+    height: 0;
+    padding: 0;
+    right: 0;
+    border: 2px solid transparent;
+    transform: translateY(4px);
+    transition-duration: .3s;
+    opacity: 0;
+}
+
+.all-campaigns .campaign-card .cancel-delete {
+    width: 49%;
+    text-align: center;
+    background-color: #ddd;
+    color: var(--dark);
+    overflow-y: hidden;
+    height: 0;
+    padding: 0;
+    left: 0;
+    border: 0px solid transparent;
+    transform: translateY(4px);
+    transition-duration: .3s;
+    /* opacity: 0; */
+}
+
+.all-campaigns .campaign-card .confirm-delete:hover {
+    color: #fff;
+    background-color: #d43021;
+    border: 2px solid #d43021;
+}
+
+.all-campaigns .campaign-card .cancel-delete:hover {
+    background-color: #bbb;
+}
+
+.all-campaigns .campaign-card .confirm-delete.show {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(0px);
+    border: 2px solid #d43021;
+    opacity: 1;
+    transition-duration: .3s;
+}
+
+.all-campaigns .campaign-card .cancel-delete.show {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(0px);
+    border: 2px solid #ddd;
+    opacity: 1;
+    transition-duration: .3s;
 }
 
 input[type=range] {
@@ -655,7 +740,7 @@ input[type=range]::-ms-track {
     width: 100%;
     height: fit-content;
     padding: 3rem;
-    background-color: #9394ff50;
+    background-color: #abadff46;
     border-radius: 10px;
     position: relative;
 }
@@ -686,4 +771,63 @@ input[type=range]::-ms-track {
     position: absolute;
     right: 1rem;
     bottom: 1rem;
+}
+
+table {
+    width: 100%;
+}
+
+table th {
+    text-align: center;
+    background-color: var(--blue);
+    color: #fff;
+    padding: .5rem;
+}
+
+table td {
+    padding: 1rem 0;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.success-pill {
+    padding: .3rem 1rem;
+    background-color: rgba(114, 255, 114, 0.253);
+}
+
+.failure-pill {
+    padding: .3rem 1rem;
+    background-color: rgba(255, 114, 114, 0.253);
+}
+
+.info-card {
+    width: 100%;
+    height: fit-content;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: #abadff46;
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.success-card .donation-info {
+    display: flex;
+}
+
+.info-card .sub-info {
+    display: flex;
+}
+
+.info-card p {
+    font-size: 22px;
+    color: var(--text);
+}
+
+.info-card span {
+    font-size: 22px;
+    color: var(--dark);
+    display: block;
+    margin-left: 1rem;
 }

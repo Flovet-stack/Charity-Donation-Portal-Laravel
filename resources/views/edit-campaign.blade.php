@@ -4,12 +4,12 @@ Edit Campaign
 @endsection
 @section('content')
 {{ View::make('components.header') }}
-<form class="register-form" action="/update-campaign/{{ $current_campaign['campaign_id'] }}" method="POST" enctype="multipart/form-data">
+<form class="register-form" action="/update-campaign/{{ $current_campaign['id'] }}" method="POST" enctype="multipart/form-data">
     @csrf
-    <h3 class="caption">Create Campaign</h3>
+    <h3 class="caption">Update Campaign</h3>
     <div class="form-item">
-        <label for="name">Campaign Name</label>
-        <input type="text" name="name" id="name" placeholder="name" value="{{ $current_campaign['campaign_name'] }}" required>
+        <label for="campaign_name">Campaign Name</label>
+        <input value="{{ $current_campaign['campaign_name'] }}" type="text" name="campaign_name" id="campaign_name" placeholder="name" required>
     </div>
     <div class="form-item">
         <label for="goal_amount">Goal Amount</label>
@@ -24,8 +24,10 @@ Edit Campaign
     <div class="form-item">
         <label for="image">Profle Image</label>
         <input type="file" name="image" value="{{ $current_campaign['image'] }}" id="image">
+        {{-- <input type="text" name="id" value="{{ $current_campaign['id'] }}" id="image"> --}}
     </div>
 
-    <button type="submit" class="btn btn-blue">Create Your Campaign</button>
+    <button type="submit" class="btn btn-blue">Upadate Campaign</button>
 </form>
 @endsection
+

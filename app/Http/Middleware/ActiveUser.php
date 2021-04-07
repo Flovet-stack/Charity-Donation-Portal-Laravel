@@ -23,6 +23,8 @@ class ActiveUser
             return redirect('/');
         } else if ($request->path()=='logout' && $request->session()->has('user')) {
             Session::forget('user');
+            Session::forget('user_id');
+            Session::forget('username');
             return redirect('/login');
         }
 

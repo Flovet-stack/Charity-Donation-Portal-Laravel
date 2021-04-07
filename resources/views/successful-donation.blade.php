@@ -9,7 +9,11 @@ Successful Donation
         <div class="success-card">
             <h1>Successfull Donation</h1>
             <div class="donation-info">
-                <p>Transaction Status:</p><span>{{ $donationInfo->status }}</span>
+                @if($donationInfo->status == 'SUCCESS')
+                <p>Transaction Status:</p><span class="green">{{ $donationInfo->status }}</span>
+                @else
+                <p>Transaction Status:</p><span class="red">{{ $donationInfo->status }}</span>
+                @endif
             </div>
             <div class="donation-info">
                 <p>Amount:</p><span>{{ $donationInfo->donation_amount }}FCFA</span>
@@ -17,10 +21,9 @@ Successful Donation
             <div class="donation-info">
                 <p>Transaction ID:</p><span>{{ $donationInfo->transaction_id }}</span>
             </div>
-            <form action="/save-donation/{{ $donationInfo->transaction_id }}" method="POST">
+            <form action="/my-donations" method="POST">
                 @csrf
-                {{-- <input type="text" name="campaign_id" id="campaign_id" value="{{ $current_campaign['campaign_id'] }}" placeholder="amount" required> --}}
-                <input type="hidden" name="author_id" id="author_id" value="{{ Session::get('user_id') }}" placeholder="amount" required>
+                {{-- <input type="hidden" value="{{ $donationInfo->campaign_id}}" name="campaign_id" id=""> --}}
                 <button type="submit" href="" class="btn btn-red">Continue and Save Donation</button>
             </form>
         </div>
@@ -28,3 +31,4 @@ Successful Donation
     </div>
 </div>
 @endsection
+

@@ -14,13 +14,16 @@ class CreateDonationsTable extends Migration
     public function up()
     {
         Schema::create('donations', function (Blueprint $table) {
-            $table->id('donation_id');
-            $table->integer('donation_author_id')->nullable();
-            $table->string('donation_amount')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->integer('donation_campaign_id')->nullable();
-            $table->string('status')->nullable();
+            $table->id('id');
+            $table->unsignedBigInteger('author_id');
+            $table->unsignedBigInteger('campaign_id');
+            $table->string('donation_amount');
+            $table->string('transaction_id');
+            $table->string('status')->default(false);
             $table->timestamps();
+
+            $table->foreign('author_id')->references('id')->on('users');
+            $table->foreign('campaign_id')->references('id')->on('campaigns');
         });
     }
 

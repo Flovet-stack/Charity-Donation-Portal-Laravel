@@ -7,7 +7,7 @@ Login
 <div class="page-start">
     <div class="con">
         <div class="profile-info-section">
-            <img src="{{ asset('images/img/little-girl.jpg') }}" alt="">
+            <img src="{{ asset("public/users/$userDetails->user_image") }}" alt="">
             <div class="profile-info-content">
                 <div class="category">{{ $userDetails->category }}</div>
                 <div class="name">{{ $userDetails->username }}</div>

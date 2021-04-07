@@ -44,4 +44,21 @@ goalAmounts.forEach(goalAmount => {
     let amount = formatter.format(goalAmount.textContent);
     goalAmount.textContent = amount;
 });
-// console.log(goalAmounts);
+
+// SHOWING THE DELETE CAMPAIGN BUTTON
+let deleteBtns = document.getElementsByClassName('delete-btn');
+let cancelDeleteBtns = document.getElementsByClassName('cancel-delete');
+deleteBtns = Array.from(deleteBtns);
+cancelDeleteBtns = Array.from(cancelDeleteBtns);
+deleteBtns.forEach(deleteBtn => {
+    deleteBtn.addEventListener('click', () => {
+        deleteBtn.parentElement.children[2].classList.add('show');
+        deleteBtn.parentElement.children[3].classList.add('show');
+    });
+});
+cancelDeleteBtns.forEach(cancelDeleteBtn => {
+    cancelDeleteBtn.addEventListener('click', () => {
+        cancelDeleteBtn.parentElement.children[2].classList.remove('show');
+        cancelDeleteBtn.parentElement.children[3].classList.remove('show');
+    });
+});

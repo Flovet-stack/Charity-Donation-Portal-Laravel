@@ -11,7 +11,7 @@ Login
     <h3 class="caption">Login</h3>
     <div class="form-item">
         <label for="email">Email Address</label>
-        <input type="email" name="email" value="{{ old('email') }}" id="email" placeholder="eg. user@example.com" required>
+        <input value="{{ Session::get('') }}" type="email" name="email" value="{{ old('email') }}" id="email" placeholder="eg. user@example.com" required>
     </div>
     <div class="form-item">
         <label for="password">Password</label>
