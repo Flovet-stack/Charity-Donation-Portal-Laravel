@@ -21,6 +21,7 @@ class UserController extends Controller
             $request->session()->put('user', $user);
 
             return redirect('/');
+            // return Session::get('user')->id;
         }
     }
     
