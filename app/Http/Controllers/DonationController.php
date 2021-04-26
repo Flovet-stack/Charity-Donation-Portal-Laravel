@@ -22,7 +22,7 @@ class DonationController extends Controller
     }
 
     public function donate(Request $request) {
-        $user_id = Session::get('user')->user_id;
+        $user_id = Session::get('user')->id;
 
         $myPayment = new PayUnit(
             "51f319a7fe052fbb4be7aa13483f617209944253",
@@ -62,12 +62,15 @@ class DonationController extends Controller
         $donation->save();
 
         return view('successful-donation', ['donationInfo' => $donation]);
+        // return $request;
     }
 
     public function myDonations(Request $request) {
-        $donations = Donation::where('author_id', session('user')->user_id)->get();
+        $donations = Donation::where('author_id', Session::get('user')->id)->get();
 
-        return view('my-donations', ['donations' => $donations, '']);
+        // return $donations;
+        return view('my-donations', ['donations' => $donations,]);
+        // return Session::get('user');
     }
 }
         

@@ -21,11 +21,7 @@ Successful Donation
             <div class="donation-info">
                 <p>Transaction ID:</p><span>{{ $donationInfo->transaction_id }}</span>
             </div>
-            <form action="/my-donations" method="POST">
-                @csrf
-                {{-- <input type="hidden" value="{{ $donationInfo->campaign_id}}" name="campaign_id" id=""> --}}
-                <button type="submit" href="" class="btn btn-red">Continue and Save Donation</button>
-            </form>
+                <a href="/my-donations" class="btn btn-red">Continue and Save Donation</a>
         </div>
 
     </div>

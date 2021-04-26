@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Campaign;
+use App\Models\Donation;
 use Session;
 use Illuminate\Support\Facades\DB;
 
@@ -68,11 +69,17 @@ class CampaignController extends Controller
 
     public function deleteCampaign($id) {
         $current_campaign = Campaign::find($id);
+        $current_campaign_donation = Donation::where('campaign_id', $id)->get();
         if(file_exists(public_path()."/public/img/".$current_campaign->image)) {
             unlink(public_path()."/public/img/".$current_campaign->image);
         }
+        foreach($current_campaign_donation as $campaign_donation){
+            $campaign_donation->delete();
+        };
         $current_campaign->delete();
 
+        // return $current_campaign_donation;
+        // return ($current_campaign_donation[0]);
         return redirect('/my-campaigns/'.session()->get('user')->username);
     }
 }

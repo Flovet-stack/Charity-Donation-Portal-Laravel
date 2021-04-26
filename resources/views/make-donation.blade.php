@@ -13,7 +13,7 @@ Make Donation
         <label for="amount">Enter Amount To Donate</label>
         <input type="amount" name="amount" id="amount" placeholder="amount" required>
     </div>
-    <button type="submit" class="btn btn-blue">Donate</button>
+    <a href="./my-donations" type="submit" class="btn btn-blue">Donate</a>
 
 </form>
 @endsection
